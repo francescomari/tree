@@ -1,0 +1,19 @@
+{
+  "name": "tree",
+  "version": "0.0.1",
+  "author": "Francesco Mari <mari.francesco@gmail.com>",
+  "description": "Manage a tree stored in LevelDB",
+  "license": "MIT",
+  "main": "lib/tree",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/francescomari/tree.git"
+  },
+  "dependencies": {
+    "async": "^0.8.0"
+  },
+  "devDependencies": {
+    "memdown": "^0.8.0",
+    "levelup": "^0.18.3"
+  }
+}
