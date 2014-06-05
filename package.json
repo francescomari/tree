@@ -5,6 +5,9 @@
   "description": "Manage a tree stored in LevelDB",
   "license": "MIT",
   "main": "lib/tree",
+  "scripts": {
+    "test": "nodeunit test"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/francescomari/tree.git"
@@ -13,7 +16,8 @@
     "async": "^0.8.0"
   },
   "devDependencies": {
+    "levelup": "^0.18.3",
     "memdown": "^0.8.0",
-    "levelup": "^0.18.3"
+    "nodeunit": "^0.9.0"
   }
 }

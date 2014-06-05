@@ -72,12 +72,12 @@ The `type` field must always have a value of `'put'`, while the `path` and `prop
 
 The `type` field must always have a value of `'del'`, while the `path` field has the same meaning as the parameter apssed to the `tree.del()` function.
 
-## Parallelism
+## Parallelism and locking
 
-Reads performed to the tree always pass through, without any form of control. Writes to the database triggered with `tree.put()`, `tree.del()` or `tree.batch()`, instead, are performed sequentially.
+Reads performed to the tree always pass through, without any form of control. Writes to the database triggered with `tree.put()`, `tree.del()` or `tree.batch()`, instead, use a form of locking to protect from undesired results.
 
 This happens to maintain consistency in the data written to the underlying database. Each write operation, in fact, is composed under the hood of many atomic LevelDB operations. Moreover, the set of atomic operations performed during a write depends on the status of the database when the write is performed.
 
 In example, when writing a node in the database, the implementation must be sure that the parent node exists. Under the hood, a read operation is performed to check that the parent is already present in the database. If between this check and the actual write a delete operation deletes the parent, we are going to persist a dangling node which will not be accessed anymore. If the parent doesn't exist, there is no way to access that node anymore.
 
-To avoid this and other weirder situations, every write to the database is serialized. This is a reasonable tradeoff between performance and consistency.
+To avoid this and other weirder situations, every write to the database may fail if the path has been already locked by a previous operation. This is a reasonable tradeoff between performance and consistency.
